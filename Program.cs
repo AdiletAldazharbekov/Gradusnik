@@ -69,13 +69,13 @@ namespace ConsoleApp1
         {
             Console.WriteLine($"Самая низкая температура: {blok.Min(): 0.0}");
             Console.WriteLine($"Самая высокая температура: {blok.Max(): 0.0}");
-            Console.WriteLine($"Средняя температура: {blok.Sum()/blok.Count(): 0.0}");
+            Console.WriteLine($"Средняя температура: {blok.Average(): 0.0}");
             Console.WriteLine($"Количество дней с минимальной температурой: {blok.Where(t => t == blok.Min()).Count()}");
             Console.WriteLine($"Количество дней с максимальной температурой: {blok.Where(t => t == blok.Max()).Count()}");
             Console.WriteLine($"Количество дней с номальной температурой: {blok.Where(t => t <= 37.5).Count()}");
             Console.WriteLine($"Количество дней с высокой температурой: {blok.Where(t => t <= 38.3).Count()- blok.Where(t => t <= 37.5).Count()}");
             Console.WriteLine($"Количество дней с очень высокой температурой: {blok.Where(t => t > 38.3).Count()}");
-            Console.WriteLine($"температурой: {blok.Where(t => t > 38.3).Count()}");
+            // Самые сильные скочки температуры
 
         }
     }
