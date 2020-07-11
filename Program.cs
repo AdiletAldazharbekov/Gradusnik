@@ -75,6 +75,8 @@ namespace ConsoleApp1
             Console.WriteLine($"Количество дней с номальной температурой: {blok.Where(t => t <= 37.5).Count()}");
             Console.WriteLine($"Количество дней с высокой температурой: {blok.Where(t => t <= 38.3).Count()- blok.Where(t => t <= 37.5).Count()}");
             Console.WriteLine($"Количество дней с очень высокой температурой: {blok.Where(t => t > 38.3).Count()}");
+            Console.WriteLine($"температурой: {blok.Where(t => t > 38.3).Count()}");
+
         }
     }
 }
