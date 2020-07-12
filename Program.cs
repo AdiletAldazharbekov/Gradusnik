@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace ConsoleApp1
@@ -58,7 +59,9 @@ namespace ConsoleApp1
             }
 
             if (logbook.Count > 0) Output(logbook);
-                
+            if (logbook.Count > 0) Diagram(logbook);
+
+
         }
         public static void Clear()
         {
@@ -74,30 +77,83 @@ namespace ConsoleApp1
 
             Console.WriteLine($"\nКоличество дней с минимальной температурой: {blok.Where(t => t == blok.Min()).Count()}");
             Console.WriteLine($"Количество дней с максимальной температурой: {blok.Where(t => t == blok.Max()).Count()}");
-            
-            // Самые сильные скочки (рост и спад)  температуры и в какой день это было 
+
+            double maxRise = 0;
+            double maxDrop = 0;
+            int maxRiseDay = 0;
+            int maxDropDay = 0;
+            double difference = 0;
+            for (int i = 0; i < blok.Count(); i++)
+            {
+                if (i!=0)
+                {
+                    var d1 = blok[i];
+                    var d2 = blok[i-1];
+                    difference = d1 - d2;
+                }
+                
+                if (difference>maxRise)
+                {
+                    maxRise = difference;
+                    maxRiseDay = i+1;
+                }
+                else if (difference < maxDrop)
+                {
+                    maxDrop = difference;
+                    maxDropDay = i+1;
+                }
+            }
+            Console.WriteLine($"\nМаксимальный рост температуры составил {maxRise: 0.0} градусов, который был зафиксирован в {maxRiseDay}-день");
+
+            Console.WriteLine($"Максимальный спад температуры составил {maxDrop*-1: 0.0} градусов, который был зафиксирован в {maxDropDay}-день");
 
             Console.WriteLine($"\nКоличество дней с нормальной температурой: {blok.Where(t => t <= 37.5).Count()}");
             Console.WriteLine($"Количество дней с высокой температурой: {blok.Where(t => t <= 38.3).Count()- blok.Where(t => t <= 37.5).Count()}");
             Console.WriteLine($"Количество дней с очень высокой температурой: {blok.Where(t => t > 38.3).Count()}");
         }
 
-        public static void Osut()
-        {
-            string str = Console.ReadLine();
-            var str1 = str.Replace(" ", "");
-            var str2 = str1.Replace(",", ".");
-
-           
-            Console.WriteLine(str2);
-            
-        }
+        
 
         private static string Ending()
         {
             Console.WriteLine("\n\nДля выхода нажмите на клавишу \"N\"" +
                     "\nНачать заново нажмите на любую клавишу");
             return Console.ReadLine();
+        }
+        public static void Diagram(List<double> blok)
+        {
+            int maxT = 41;
+            int t = Console.CursorTop + 11;
+            for (int i = Console.CursorTop; i <= t; i++)
+            {
+                if (maxT>38.3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                else if (maxT > 37.5)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                Console.Write($"{maxT:0.0}");
+
+                for (int j = 0; j < blok.Count(); j++)
+                {
+                    if (Convert.ToInt32(blok[j]) == maxT)
+                    {
+                        Console.SetCursorPosition(j+5, i);
+                        Console.Write("*");
+                    }
+
+                }
+                maxT -=1;
+                Console.Write("\n");
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+
         }
     }
 }
