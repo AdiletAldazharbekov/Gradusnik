@@ -32,7 +32,7 @@ namespace ConsoleApp1
         public static void Greeting()
         {
             Console.WriteLine("Здравствуйте, вас приветствует программа \"Градусник\"!"+
-            "\nДля старта нажмите на любую клавишу");
+            "\nДля старта нажмите на любую клавишу.");
             Clear();
         }
         public static void Input()
