@@ -11,27 +11,35 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            Console.WriteLine("\t\tЗдравствуйте, вас приветствует программа \"Градусник\"!");
-            Console.WriteLine("\n\tДля старта нажмите на любую клавишу");
-            Clear();
-            // Ввод данных
-            string n;
+            string stop;
             do
             {
+                //Приветствие
+                Greeting();
+                // Ввод данных
                 Input();
+
+
                 Console.WriteLine("\n\nДля выхода нажмите на клавишу \"N\"" +
                     "\nДля продолжения нажмите на любую клавишу");
-                n = Console.ReadLine();
+                stop = Console.ReadLine();
                 Clear();
-            } while (n.ToUpper() != "N");
+            } while (stop.ToUpper() != "N");
 
            
         }
 
+        public static void Greeting()
+        {
+            Console.WriteLine("Здравствуйте, вас приветствует программа \"Градусник\"!"+
+            "\nДля старта нажмите на любую клавишу");
+            Clear();
+        }
         public static void Input()
         {
-            double temperatura;
-            List<double> bloknot = new List<double>();
+            double temperature;
+
+            List<double> logbook = new List<double>();
 
             int i=1;
             while (true)
@@ -43,19 +51,19 @@ namespace ConsoleApp1
                     Console.WriteLine("Конец ввода, Нажмите на любую клавишу");
                     break;
                 }
-                double.TryParse(input, out temperatura);
-                if (temperatura == 0 || temperatura <30 || temperatura>41)
+                double.TryParse(input, out temperature);
+                if (temperature == 0 || temperature <30 || temperature>41)
                     Console.WriteLine("Ошибка ввода,  данные должны быть в интервале от 30 до 41 градусов");
                 else
                 {
-                    bloknot.Add(temperatura);//запись в список
+                    logbook.Add(temperature);//запись в список
                     i++;
                 }
             }
             Clear();
-            if (bloknot.Count > 0)
+            if (logbook.Count > 0)
             {
-                Output(bloknot);
+                Output(logbook);
             }
            
                 
@@ -72,7 +80,7 @@ namespace ConsoleApp1
             Console.WriteLine($"Средняя температура: {blok.Average(): 0.0}");
             Console.WriteLine($"Количество дней с минимальной температурой: {blok.Where(t => t == blok.Min()).Count()}");
             Console.WriteLine($"Количество дней с максимальной температурой: {blok.Where(t => t == blok.Max()).Count()}");
-            Console.WriteLine($"Количество дней с номальной температурой: {blok.Where(t => t <= 37.5).Count()}");
+            Console.WriteLine($"Количество дней с нормальной температурой: {blok.Where(t => t <= 37.5).Count()}");
             Console.WriteLine($"Количество дней с высокой температурой: {blok.Where(t => t <= 38.3).Count()- blok.Where(t => t <= 37.5).Count()}");
             Console.WriteLine($"Количество дней с очень высокой температурой: {blok.Where(t => t > 38.3).Count()}");
             // Самые сильные скочки температуры
